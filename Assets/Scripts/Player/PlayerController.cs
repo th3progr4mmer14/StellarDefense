@@ -4,6 +4,7 @@ using UnityEngine;
 using StellarDefense.Data;
 using StellarDefense.InputSystem;
 using StellarDefense.Projectiles;
+using StellarDefense.Managers;
 
 namespace StellarDefense.Player
 {
@@ -72,8 +73,10 @@ namespace StellarDefense.Player
 
         private void OnEnable()
         {
-            // Suscripción a inputs. Hay que recordar desuscribir en OnDisable
-            // para no provocar leaks ni inputs fantasma cuando el GO se destruye/desactiva.
+            // Null guard: si OnEnable se llama antes de Awake (caso edge tras recompilación
+            // en runtime), creamos controls aquí. Awake también lo crea, pero esto evita el crash.
+            controls ??= new PlayerControls();
+
             controls.Gameplay.Enable();
             controls.Gameplay.Move.performed += OnMovePerformed;
             controls.Gameplay.Move.canceled += OnMoveCanceled;
@@ -82,6 +85,9 @@ namespace StellarDefense.Player
 
         private void OnDisable()
         {
+            // Null guard equivalente: si controls nunca se inicializó, no hay que desuscribir nada.
+            if (controls == null) return;
+
             controls.Gameplay.Move.performed -= OnMovePerformed;
             controls.Gameplay.Move.canceled -= OnMoveCanceled;
             controls.Gameplay.Shoot.performed -= OnShootPerformed;
@@ -92,6 +98,13 @@ namespace StellarDefense.Player
         {
             // Notificamos las vidas iniciales para que la UI se sincronice al spawnear.
             OnLivesChanged?.Invoke(currentLives);
+
+            // Reset del score al iniciar la partida. Si el ScoreManager no existe
+            // (caso de Play directo en Gameplay sin pasar por MainMenu), no pasa nada.
+            if (ScoreManager.Instance != null)
+            {
+                ScoreManager.Instance.ResetScore();
+            }
         }
 
         private void Update()
@@ -167,8 +180,14 @@ namespace StellarDefense.Player
         {
             isDead = true;
             OnPlayerDeath?.Invoke();
-            // No destruimos el GameObject aquí; deja que GameManager decida
-            // (puede querer reproducir animación, esperar input, etc.).
+
+            // Notificamos al GameManager para que cambie el estado a GameOver.
+            // Validamos null porque en builds de desarrollo el GameManager puede
+            // no estar presente (p.ej. si pulsas Play directamente en Gameplay sin pasar por MainMenu).
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.EndGame();
+            }
         }
 
         /// <summary>
