@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 691eb15e236a2b3489b965dd59bd6149, type: 3}
   m_Name: FastEnemy
   m_EditorClassIdentifier: Assembly-CSharp::StellarDefense.Enemies.EnemyData
-  enemyName: Basic
+  enemyName: Fast
   sprite: {fileID: 0}
   tint: {r: 1, g: 1, b: 1, a: 1}
   health: 1
-  pointsValue: 10
-  speedMultiplier: 1
-  shootProbabilityPerSecond: 0.1
-  projectileSpeed: 6
+  pointsValue: 20
+  speedMultiplier: 1.6
+  shootProbabilityPerSecond: 0.08
+  projectileSpeed: 8
   projectileDamage: 1
   explosionSfx: {fileID: 0}
   deathVfxPrefab: {fileID: 0}

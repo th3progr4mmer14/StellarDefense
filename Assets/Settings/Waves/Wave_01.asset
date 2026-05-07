@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StellarDefense.Enemies.WaveData
   waveName: Wave 1
   waveNumber: 1
-  rows: []
+  rows:
+  - enemyData: {fileID: 11400000, guid: d56091318224b30478c3ab44604ed4a9, type: 2}
+    count: 8
+  - enemyData: {fileID: 11400000, guid: d56091318224b30478c3ab44604ed4a9, type: 2}
+    count: 8
   horizontalSpacing: 1.2
   verticalSpacing: 1
   spawnYOffset: 3.5
