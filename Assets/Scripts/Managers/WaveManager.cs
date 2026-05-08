@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using StellarDefense.Enemies;
+using StellarDefense.UI;
 
 namespace StellarDefense.Managers
 {
@@ -24,6 +25,10 @@ namespace StellarDefense.Managers
         [Tooltip("Si está marcado, al terminar la última wave se reinicia el ciclo. " +
                  "Útil para gameplay infinito mientras desarrollamos el sistema de score.")]
         [SerializeField] private bool loopWaves = true;
+
+        [Header("UI")]
+        [Tooltip("HUDController para mostrar wave actual y countdown.")]
+        [SerializeField] private HUDController hudController;
 
         // ── Eventos ────────────────────────────────────────────────────
         /// <summary>Disparado al iniciar una wave nueva. Param: número de wave (1-indexado).</summary>
@@ -68,6 +73,9 @@ namespace StellarDefense.Managers
             WaveData wave = waves[currentWaveIndex];
             formation.SpawnWave(wave);
             OnWaveStarted?.Invoke(wave.WaveNumber);
+
+            if (hudController != null)
+                hudController.UpdateWave(wave.WaveNumber);
         }
 
         private void HandleWaveCleared()
@@ -92,6 +100,9 @@ namespace StellarDefense.Managers
 
         private IEnumerator WaitAndLaunchNext()
         {
+            if (hudController != null)
+                hudController.ShowWaveCountdown(timeBetweenWaves);
+
             yield return new WaitForSeconds(timeBetweenWaves);
             LaunchCurrentWave();
         }
