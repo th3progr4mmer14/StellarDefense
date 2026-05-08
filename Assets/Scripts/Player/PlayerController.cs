@@ -152,6 +152,9 @@ namespace StellarDefense.Player
             Vector2 origin = firePoint != null ? (Vector2)firePoint.position : (Vector2)transform.position;
             projectile.Launch(origin, Vector2.up, gameSettings.PlayerProjectileSpeed);
 
+            // Notificar al AudioManager. Null check porque puede no estar en algunas escenas de prueba.
+            if (AudioManager.Instance != null) AudioManager.Instance.OnPlayerShoot();
+
             lastShotTime = Time.time;
         }
 
@@ -165,6 +168,9 @@ namespace StellarDefense.Player
 
             OnPlayerHit?.Invoke();
             OnLivesChanged?.Invoke(currentLives);
+
+            // SFX de hit
+            if (AudioManager.Instance != null) AudioManager.Instance.OnPlayerHit();
 
             if (currentLives <= 0)
             {
