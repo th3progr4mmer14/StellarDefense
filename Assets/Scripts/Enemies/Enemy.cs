@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using StellarDefense.Managers;
 using StellarDefense.Projectiles;
 
 namespace StellarDefense.Enemies
@@ -79,6 +80,7 @@ namespace StellarDefense.Enemies
             Vector2 origin = firePoint != null ? (Vector2)firePoint.position : (Vector2)transform.position;
             // Los enemigos disparan hacia abajo (hacia el jugador).
             projectile.Launch(origin, Vector2.down, data.ProjectileSpeed);
+            if (AudioManager.Instance != null) AudioManager.Instance.OnEnemyShoot();
         }
 
         // ── Daño ───────────────────────────────────────────────────────
