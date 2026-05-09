@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 404285472182899365}
   - component: {fileID: 5925031213816677489}
   - component: {fileID: 5306746026191077327}
+  - component: {fileID: 1311789097621979037}
   m_Layer: 11
   m_Name: ExtraLifePowerUp
   m_TagString: PowerUp
@@ -143,3 +144,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StellarDefense.PowerUps.ExtraLifePowerUp
   fallSpeed: 2
   lifetime: 8
+--- !u!95 &1311789097621979037
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8021049771218594121}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5c02bcc0ed41c2f44828700d35ea5fbd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

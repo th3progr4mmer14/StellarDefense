@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b004fefc26e8a14586da535e02e7b6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StellarDefense.Utils.ExplosionEffect
-  particleCount: 8
-  speed: 3
-  lifetime: 0.5
+  particleCount: 20
+  speed: 6
+  lifetime: 0.8
   color: {r: 1, g: 0.84313726, b: 0, a: 1}
