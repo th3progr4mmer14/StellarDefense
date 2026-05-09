@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 3930580038891404087}
   - component: {fileID: 7561259889916785427}
   - component: {fileID: 6336717846389802948}
+  - component: {fileID: 3732787726088793085}
   m_Layer: 7
   m_Name: FastEnemy
   m_TagString: Enemy
@@ -213,3 +214,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StellarDefense.Enemies.FastEnemy
   data: {fileID: 0}
   firePoint: {fileID: 3375547789295417260}
+--- !u!95 &3732787726088793085
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8424078076562856423}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2ad1ceb8a7ce85449b1cdf7bea6849f1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

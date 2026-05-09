@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 785973823346851524}
   - component: {fileID: 6342573083983669388}
   - component: {fileID: 6400958661733412413}
+  - component: {fileID: 7848172791606321608}
   m_Layer: 7
   m_Name: BasicEnemy
   m_TagString: Enemy
@@ -182,6 +183,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StellarDefense.Enemies.BasicEnemy
   data: {fileID: 0}
   firePoint: {fileID: 5574842784758479849}
+--- !u!95 &7848172791606321608
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4292708982493754713}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2ad1ceb8a7ce85449b1cdf7bea6849f1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4946951037573923154
 GameObject:
   m_ObjectHideFlags: 0
