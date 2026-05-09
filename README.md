@@ -1,90 +1,170 @@
-\# StellarDefense
-
-
+# StellarDefense 🚀
 
 Juego 2D arcade estilo Space Invaders desarrollado en Unity 6 LTS con C#.
 
+![Unity](https://img.shields.io/badge/Unity-6%20LTS-black?logo=unity)
+![C#](https://img.shields.io/badge/C%23-purple?logo=csharp)
+![Platform](https://img.shields.io/badge/Platform-Windows-blue)
+![Status](https://img.shields.io/badge/Status-En%20desarrollo-green)
 
+---
 
-\## Stack
+## 🎮 Descripción
 
-\- Unity 6 LTS · URP 2D
+StellarDefense es un shooter arcade 2D donde el jugador debe defender la Tierra de oleadas de enemigos alienígenas. Inspirado en el clásico Space Invaders, el juego incorpora mecánicas modernas como sistema de combos, power-ups, efectos visuales y música dinámica.
 
-\- C# (Mono / IL2CPP en build)
+---
 
-\- Input System (paquete nuevo)
+## ✨ Características
 
-\- TextMeshPro
+### Gameplay
+- 🚀 Nave del jugador con movimiento horizontal y disparo con cooldown
+- 👾 3 tipos de enemigos (Basic, Fast, Tank) con stats configurables via ScriptableObjects
+- 🎯 Formación de enemigos estilo Space Invaders clásico (movimiento lateral + bajada progresiva)
+- 🌊 Sistema de waves escalable con dificultad progresiva
+- ⚡ Power-ups: Escudo, Triple Disparo y Vida Extra
+- 💥 Object Pooling para proyectiles (sin Instantiate/Destroy en runtime)
 
-\- uGUI (Canvas Scaler 1920×1080)
+### Sistema de puntuación
+- 🏆 Score en tiempo real con multiplicador de combo (hasta x10)
+- 💾 High Score persistente entre sesiones (PlayerPrefs)
+- ⏱️ Ventana de combo configurable
 
+### Audio
+- 🎵 Música dinámica contextual (MainMenu / Gameplay)
+- 🔊 SFX para todas las acciones (disparo, hit, explosión, enemigos)
+- 🎚️ AudioMixer con grupos Master/Music/SFX
+- 🔧 Volúmenes persistentes entre sesiones
 
+### UI Completa
+- 📊 HUD con Score, High Score, Vidas (♥♥♥) y Wave actual
+- 🏠 MainMenu con High Score y botones funcionales
+- 💀 Game Over Screen con score final y detección de nuevo récord
+- ⏸️ Pause Menu con Esc
+- ⚙️ Settings Panel con sliders de volumen
 
-\## Estructura del proyecto
+### Polish Visual
+- 💥 Partículas de explosión al matar enemigos
+- 📳 Screen shake al recibir daño
+- 🔢 Texto flotante con puntos y multiplicador de combo
+- 🌟 Efecto de parpadeo (invulnerabilidad) al recibir daño
+- 🔵 Efecto visual de escudo activo (parpadeo cian)
 
+---
 
+## 🏗️ Arquitectura
 
+### Patrones de diseño utilizados
+| Patrón | Aplicación |
+|---|---|
+| **Singleton** | GameManager, ScoreManager, AudioManager |
+| **Object Pool** | ProjectilePool (proyectiles jugador y enemigos) |
+| **Observer (Events)** | Enemy.OnAnyEnemyDestroyed, OnPlayerHit, OnLivesChanged |
+| **State Machine** | GameManager (MainMenu, Playing, Paused, GameOver) |
+| **ScriptableObjects** | GameSettings, EnemyData, WaveData |
+| **Data-Driven Design** | Stats de enemigos y waves configurables sin recompilar |
+
+### Estructura de carpetas
+```
 Assets/
+├── Audio/
+│   ├── Music/          (música de fondo)
+│   └── SFX/            (efectos de sonido)
+├── Input/              (PlayerControls.inputactions)
+├── Prefabs/
+│   ├── Effects/        (explosión, texto flotante)
+│   ├── Enemies/        (BasicEnemy, FastEnemy, TankEnemy)
+│   ├── Player/
+│   ├── PowerUps/       (Shield, ExtraLife, TripleShot)
+│   └── Projectiles/
+├── Scenes/
+│   ├── MainMenu.unity
+│   └── Gameplay.unity
+├── Scripts/
+│   ├── Audio/          (AudioManager)
+│   ├── Data/           (GameSettings ScriptableObject)
+│   ├── Enemies/        (Enemy, EnemyFormation, WaveManager, EnemyData, WaveData)
+│   ├── Managers/       (GameManager, ScoreManager, PolishManager)
+│   ├── Player/         (PlayerController)
+│   ├── PowerUps/       (PowerUp base, ShieldPowerUp, ExtraLifePowerUp, TripleShotPowerUp, PowerUpSpawner)
+│   ├── Projectiles/    (Projectile, PlayerProjectile, EnemyProjectile, ProjectilePool)
+│   ├── UI/             (HUDController, MainMenuController, GameOverController, PauseMenuController, SettingsController)
+│   └── Utils/          (IDamageable, IPoolable, OffscreenCleaner, ScreenShake, ExplosionEffect, FloatingText)
+├── Settings/
+│   ├── Enemies/        (BasicEnemy.asset, FastEnemy.asset, TankEnemy.asset)
+│   ├── GameSettings/   (DefaultGameSettings.asset)
+│   └── Waves/          (Wave_01.asset)
+└── Sprites/            (SpaceShooterAssetPack)
+```
 
-├── Scripts/        Lógica organizada por dominio (Player, Enemies, ...)
+---
 
-├── Settings/       Instancias de ScriptableObject (datos)
+## 🛠️ Stack Técnico
 
-├── Prefabs/        GameObjects reutilizables
+| Tecnología | Versión | Uso |
+|---|---|---|
+| **Unity** | 6 LTS (6000.3.9f1) | Motor de juego |
+| **C#** | 9.0 | Lenguaje de programación |
+| **Input System** | 1.x | Sistema de input moderno |
+| **TextMeshPro** | Incluido en Unity 6 | Textos de UI |
+| **Universal RP** | 2D | Pipeline de renderizado |
+| **AudioMixer** | Nativo | Sistema de audio |
 
-├── Scenes/         MainMenu, Gameplay
+---
 
-├── Sprites/        Arte 2D
+## 🎮 Controles
 
-├── Audio/          Música y SFX
+| Acción | Tecla |
+|---|---|
+| Mover izquierda | `A` / `←` |
+| Mover derecha | `D` / `→` |
+| Disparar | `Espacio` |
+| Pausar | `Esc` |
 
-├── Materials/      Materiales 2D
+---
 
-└── Input/          PlayerControls.inputactions
+## 🚀 Cómo ejecutar
 
+### Requisitos
+- Unity 6 LTS (6000.3.9f1 o superior)
+- Windows 10/11
 
+### Pasos
+1. Clona el repositorio:
+```bash
+git clone https://github.com/th3progr4mmer14/StellarDefense.git
+```
+2. Abre Unity Hub.
+3. Click en **Add** → selecciona la carpeta del proyecto.
+4. Abre el proyecto con Unity 6 LTS.
+5. Abre la escena `Assets/Scenes/MainMenu.unity`.
+6. Dale **Play**.
 
-\## Decisiones arquitectónicas (Fase 1)
+---
 
+## 📋 Roadmap
 
+- [x] Fase 1 — Configuración base (estructura, Input System, ScriptableObjects, Git)
+- [x] Fase 2 — Gameplay Core (Player, Proyectiles, Enemigos, Formación, Waves)
+- [x] Fase 3 — Managers globales (GameManager, ScoreManager, AudioManager)
+- [x] Fase 4 — UI completa (HUD, MainMenu, GameOver, Pause, Settings)
+- [x] Fase 5 — Audio completo (música contextual, SFX)
+- [x] Fase 6 — Power-ups y Polish visual
+- [ ] Sprites y animaciones
+- [ ] Más tipos de waves y enemigos
+- [ ] Sistema de vidas con continues
+- [ ] Build para WebGL
 
-1\. \*\*GameOver como overlay\*\*, no escena separada → conserva estado de la run y elimina una transición innecesaria.
+---
 
-2\. \*\*ScriptableObjects para todo el balance\*\*: GameSettings, EnemyData, WaveData. Permiten iterar valores sin recompilar.
+## 👨‍💻 Autor
 
-3\. \*\*Namespaces por dominio\*\* (`StellarDefense.Player`, `.Enemies`, etc.) para evitar colisiones y dejar clara la propiedad del código.
+**Eduardo Mollinedo**
+- GitHub: [@th3progr4mmer14](https://github.com/th3progr4mmer14)
 
-4\. \*\*Layers separadas para proyectiles\*\* del jugador y enemigos: la matriz de colisiones hace todo el trabajo, el código no necesita comparar tags en hot paths.
+---
 
-5\. \*\*Input System nuevo\*\* desde el día 1: el legacy `Input` está en mantenimiento y no soporta bien rebinding ni multi-device.
+## 📄 Licencia
 
-6\. \*\*Comunicación por eventos C# (`Action`)\*\* entre managers y UI; ningún manager tiene referencia directa a otro salvo cuando es estrictamente necesario.
-
-
-
-\## Cómo abrir
-
-1\. Clonar el repositorio.
-
-2\. Abrir con Unity Hub apuntando a Unity 6 LTS.
-
-3\. Esperar a la compilación inicial (la carpeta `Library/` se regenera).
-
-4\. Abrir `Assets/Scenes/MainMenu.unity` y darle a Play.
-
-
-
-\## Roadmap
-
-\- ✅ Fase 1 — Configuración base, escenas, ScriptableObjects, Input
-
-\- ⬜ Fase 2 — Gameplay core (Player, proyectiles, enemigos, formación)
-
-\- ⬜ Fase 3 — Managers globales (Game, Score, Audio, Save)
-
-\- ⬜ Fase 4 — UI (menús, HUD, pausa, game over)
-
-\- ⬜ Fase 5 — Audio (mixer, música, SFX)
-
-\- ⬜ Fase 6 — Power-ups y polish
-
+Este proyecto es de uso educativo y personal.
+Assets gráficos: SpaceShooterAssetPack (uso libre para proyectos personales).
