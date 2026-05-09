@@ -68,3 +68,105 @@ StellarDefense es un shooter arcade 2D donde el jugador debe defender la Tierra 
 | **Data-Driven Design** | Stats de enemigos y waves configurables sin recompilar |
 
 ### Estructura de carpetas
+Assets/
+├── Audio/
+│   ├── Music/          (música de fondo)
+│   └── SFX/            (efectos de sonido)
+├── Input/              (PlayerControls.inputactions)
+├── Prefabs/
+│   ├── Effects/        (explosión, texto flotante)
+│   ├── Enemies/        (BasicEnemy, FastEnemy, TankEnemy)
+│   ├── Player/
+│   ├── PowerUps/       (Shield, ExtraLife, TripleShot)
+│   └── Projectiles/
+├── Scenes/
+│   ├── MainMenu.unity
+│   └── Gameplay.unity
+├── Scripts/
+│   ├── Audio/          (AudioManager)
+│   ├── Data/           (GameSettings ScriptableObject)
+│   ├── Enemies/        (Enemy, EnemyFormation, WaveManager, EnemyData, WaveData)
+│   ├── Managers/       (GameManager, ScoreManager, PolishManager)
+│   ├── Player/         (PlayerController)
+│   ├── PowerUps/       (PowerUp base, ShieldPowerUp, ExtraLifePowerUp, TripleShotPowerUp, PowerUpSpawner)
+│   ├── Projectiles/    (Projectile, PlayerProjectile, EnemyProjectile, ProjectilePool)
+│   ├── UI/             (HUDController, MainMenuController, GameOverController, PauseMenuController, SettingsController)
+│   └── Utils/          (IDamageable, IPoolable, OffscreenCleaner, ScreenShake, ExplosionEffect, FloatingText)
+├── Settings/
+│   ├── Enemies/        (BasicEnemy.asset, FastEnemy.asset, TankEnemy.asset)
+│   ├── GameSettings/   (DefaultGameSettings.asset)
+│   └── Waves/          (Wave_01 a Wave_07.asset)
+└── Sprites/            (SpaceShooterAssetPack: ships, enemies, projectiles, backgrounds, miscellaneous)
+
+---
+
+## 🛠️ Stack Técnico
+
+| Tecnología | Versión | Uso |
+|---|---|---|
+| **Unity** | 6 LTS (6000.3.9f1) | Motor de juego |
+| **C#** | 9.0 | Lenguaje de programación |
+| **Input System** | 1.x | Sistema de input moderno |
+| **TextMeshPro** | Incluido en Unity 6 | Textos de UI |
+| **Universal RP** | 2D | Pipeline de renderizado |
+| **AudioMixer** | Nativo | Sistema de audio |
+
+---
+
+## 🎮 Controles
+
+| Acción | Tecla |
+|---|---|
+| Mover izquierda | `A` / `←` |
+| Mover derecha | `D` / `→` |
+| Disparar | `Espacio` |
+| Pausar | `Esc` |
+
+---
+
+## 🚀 Cómo ejecutar
+
+### Requisitos
+- Unity 6 LTS (6000.3.9f1 o superior)
+- Windows 10/11
+
+### Pasos
+1. Clona el repositorio:
+```bash
+git clone https://github.com/th3progr4mmer14/StellarDefense.git
+```
+2. Abre Unity Hub.
+3. Click en **Add** → selecciona la carpeta del proyecto.
+4. Abre el proyecto con Unity 6 LTS.
+5. Abre la escena `Assets/Scenes/MainMenu.unity`.
+6. Dale **Play**.
+
+---
+
+## 📋 Roadmap
+
+- [x] Fase 1 — Configuración base (estructura, Input System, ScriptableObjects, Git)
+- [x] Fase 2 — Gameplay Core (Player, Proyectiles, Enemigos, Formación, Waves)
+- [x] Fase 3 — Managers globales (GameManager, ScoreManager, AudioManager)
+- [x] Fase 4 — UI completa (HUD, MainMenu, GameOver, Pause, Settings)
+- [x] Fase 5 — Audio completo (música contextual, SFX)
+- [x] Fase 6 — Power-ups y Polish visual
+- [x] Fase 7 — Integración de sprites y fondo (SpaceShooterAssetPack pixel art)
+- [ ] Animaciones (wiggle de enemigos, propulsor del jugador, explosiones animadas)
+- [ ] Más tipos de enemigos con comportamientos especiales (boss waves, kamikaze)
+- [ ] Sistema de vidas con continues
+- [ ] Build para WebGL
+
+---
+
+## 👨‍💻 Autor
+
+**Eduardo Mollinedo**
+- GitHub: [@th3progr4mmer14](https://github.com/th3progr4mmer14)
+
+---
+
+## 📄 Licencia
+
+Este proyecto es de uso educativo y personal.
+Assets gráficos: SpaceShooterAssetPack (uso libre para proyectos personales).
