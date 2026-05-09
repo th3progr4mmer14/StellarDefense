@@ -21,7 +21,7 @@ StellarDefense es un shooter arcade 2D donde el jugador debe defender la Tierra 
 - 🚀 Nave del jugador con movimiento horizontal y disparo con cooldown
 - 👾 3 tipos de enemigos (Basic, Fast, Tank) con stats configurables via ScriptableObjects
 - 🎯 Formación de enemigos estilo Space Invaders clásico (movimiento lateral + bajada progresiva)
-- 🌊 Sistema de waves escalable con dificultad progresiva
+- 🌊 Sistema de waves escalable con dificultad progresiva (7 oleadas configuradas)
 - ⚡ Power-ups: Escudo, Triple Disparo y Vida Extra
 - 💥 Object Pooling para proyectiles (sin Instantiate/Destroy en runtime)
 
@@ -44,11 +44,14 @@ StellarDefense es un shooter arcade 2D donde el jugador debe defender la Tierra 
 - ⚙️ Settings Panel con sliders de volumen
 
 ### Polish Visual
+- 🎨 Sprites pixel art del SpaceShooterAssetPack integrados en todas las entidades
+- 🌌 Fondo estrellado tileado con efecto Tiled Draw Mode
 - 💥 Partículas de explosión al matar enemigos
 - 📳 Screen shake al recibir daño
 - 🔢 Texto flotante con puntos y multiplicador de combo
 - 🌟 Efecto de parpadeo (invulnerabilidad) al recibir daño
 - 🔵 Efecto visual de escudo activo (parpadeo cian)
+- 🎯 Rotación dinámica de proyectiles según dirección de vuelo
 
 ---
 
@@ -65,7 +68,6 @@ StellarDefense es un shooter arcade 2D donde el jugador debe defender la Tierra 
 | **Data-Driven Design** | Stats de enemigos y waves configurables sin recompilar |
 
 ### Estructura de carpetas
-```
 Assets/
 ├── Audio/
 │   ├── Music/          (música de fondo)
@@ -93,9 +95,8 @@ Assets/
 ├── Settings/
 │   ├── Enemies/        (BasicEnemy.asset, FastEnemy.asset, TankEnemy.asset)
 │   ├── GameSettings/   (DefaultGameSettings.asset)
-│   └── Waves/          (Wave_01.asset)
-└── Sprites/            (SpaceShooterAssetPack)
-```
+│   └── Waves/          (Wave_01 a Wave_07.asset)
+└── Sprites/            (SpaceShooterAssetPack: ships, enemies, projectiles, backgrounds, miscellaneous)
 
 ---
 
@@ -150,8 +151,9 @@ git clone https://github.com/th3progr4mmer14/StellarDefense.git
 - [x] Fase 4 — UI completa (HUD, MainMenu, GameOver, Pause, Settings)
 - [x] Fase 5 — Audio completo (música contextual, SFX)
 - [x] Fase 6 — Power-ups y Polish visual
-- [ ] Sprites y animaciones
-- [ ] Más tipos de waves y enemigos
+- [x] Fase 7 — Integración de sprites y fondo (SpaceShooterAssetPack pixel art)
+- [ ] Animaciones (wiggle de enemigos, propulsor del jugador, explosiones animadas)
+- [ ] Más tipos de enemigos con comportamientos especiales (boss waves, kamikaze)
 - [ ] Sistema de vidas con continues
 - [ ] Build para WebGL
 
