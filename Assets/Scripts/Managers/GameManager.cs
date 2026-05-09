@@ -58,11 +58,9 @@ namespace StellarDefense.Managers
         /// <summary>Carga la escena de gameplay y entra en estado Playing.</summary>
         public void StartGame()
         {
-            // Cargamos la escena ANTES de cambiar el estado para que los suscriptores
-            // de OnStateChanged ya tengan los GameObjects de Gameplay disponibles.
-            SceneManager.LoadScene(gameplaySceneName);
             Time.timeScale = 1f;
             ChangeState(GameState.Playing);
+            SceneManager.LoadScene(gameplaySceneName);
         }
 
         /// <summary>Pone el juego en pausa. Solo válido si CurrentState == Playing.</summary>
@@ -96,8 +94,8 @@ namespace StellarDefense.Managers
         public void RestartGame()
         {
             Time.timeScale = 1f;
-            SceneManager.LoadScene(gameplaySceneName);
             ChangeState(GameState.Playing);
+            SceneManager.LoadScene(gameplaySceneName);
         }
 
         /// <summary>Vuelve al menú principal.</summary>

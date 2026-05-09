@@ -20,6 +20,12 @@ namespace StellarDefense.UI
 
         private void Start()
         {
+            // Reproducir música del menú al entrar.
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlayMusic(
+                    AudioManager.Instance.GetMenuMusic()
+                );
+
             // Mostramos el high score guardado en PlayerPrefs.
             // ScoreManager puede no existir si venimos de un cold start en esta escena.
             if (highScoreText != null)

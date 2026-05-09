@@ -89,6 +89,28 @@ namespace StellarDefense.Managers
 
             EnsureAudioSources();
             LoadAndApplyVolumes();
+
+            // Reproducir música según el estado actual al inicializar.
+            // Necesario porque OnStateChanged puede haberse disparado antes
+            // de que este AudioManager existiera.
+            StartCoroutine(PlayMusicOnStart());
+        }
+
+        private System.Collections.IEnumerator PlayMusicOnStart()
+        {
+            yield return null;
+
+            if (GameManager.Instance == null) yield break;
+
+            switch (GameManager.Instance.CurrentState)
+            {
+                case GameManager.GameState.MainMenu:
+                    PlayMusic(menuMusic);
+                    break;
+                case GameManager.GameState.Playing:
+                    PlayMusic(gameplayMusic);
+                    break;
+            }
         }
 
         private void OnEnable()
@@ -97,11 +119,42 @@ namespace StellarDefense.Managers
             // qué SFX suena en respuesta a qué evento. Si en el futuro queremos
             // añadir o quitar sonidos, este es el único sitio que hay que tocar.
             Enemy.OnAnyEnemyDestroyed += HandleEnemyDestroyed;
+
+            // Suscribirse a cambios de estado del juego para cambiar música.
+            if (GameManager.Instance != null)
+                GameManager.Instance.OnStateChanged += HandleGameStateChanged;
         }
 
         private void OnDisable()
         {
             Enemy.OnAnyEnemyDestroyed -= HandleEnemyDestroyed;
+
+            if (GameManager.Instance != null)
+                GameManager.Instance.OnStateChanged -= HandleGameStateChanged;
+        }
+
+        private void HandleGameStateChanged(GameManager.GameState newState)
+        {
+            switch (newState)
+            {
+                case GameManager.GameState.MainMenu:
+                    PlayMusic(menuMusic);
+                    break;
+
+                case GameManager.GameState.Playing:
+                    PlayMusic(gameplayMusic);
+                    break;
+
+                case GameManager.GameState.Paused:
+                    // No cambiamos música al pausar, solo se congela con timeScale=0
+                    // pero el AudioSource sigue sonando (comportamiento correcto).
+                    break;
+
+                case GameManager.GameState.GameOver:
+                    // Paramos la música al morir. Opcional: podrías poner música de game over.
+                    StopMusic();
+                    break;
+            }
         }
 
         // ── Inicialización ─────────────────────────────────────────────
@@ -129,15 +182,20 @@ namespace StellarDefense.Managers
 
         private void LoadAndApplyVolumes()
         {
-            // Si no hay valor guardado, usamos los defaults del GameSettings.
-            // El segundo parámetro de GetFloat es el valor por defecto.
             float defaultMaster = gameSettings != null ? gameSettings.DefaultMasterVolume : 0.8f;
-            float defaultMusic = gameSettings != null ? gameSettings.DefaultMusicVolume : 0.6f;
-            float defaultSfx = gameSettings != null ? gameSettings.DefaultSfxVolume : 0.8f;
+            float defaultMusic  = gameSettings != null ? gameSettings.DefaultMusicVolume  : 0.6f;
+            float defaultSfx    = gameSettings != null ? gameSettings.DefaultSfxVolume    : 0.8f;
 
+            // Si no hay preferencias guardadas, usamos defaults.
+            // Si las hay pero son menores que 0.01 (casi mute), ignoramos y usamos defaults.
             float master = PlayerPrefs.GetFloat(MasterVolumeKey, defaultMaster);
-            float music = PlayerPrefs.GetFloat(MusicVolumeKey, defaultMusic);
-            float sfx = PlayerPrefs.GetFloat(SFXVolumeKey, defaultSfx);
+            float music  = PlayerPrefs.GetFloat(MusicVolumeKey,  defaultMusic);
+            float sfx    = PlayerPrefs.GetFloat(SFXVolumeKey,    defaultSfx);
+
+            // Protección anti-mute accidental.
+            if (master < 0.01f) master = defaultMaster;
+            if (music  < 0.01f) music  = defaultMusic;
+            if (sfx    < 0.01f) sfx    = defaultSfx;
 
             SetMasterVolume(master);
             SetMusicVolume(music);
@@ -178,13 +236,15 @@ namespace StellarDefense.Managers
 
         private void ApplyVolume(string mixerParam, string prefsKey, float linearValue)
         {
-            if (audioMixer == null) return;
+            if (audioMixer == null)
+            {
+                Debug.LogError("AudioMixer es NULL");
+                return;
+            }
 
-            // Clamp para evitar valores fuera de rango y la singularidad de Log10(0).
             linearValue = Mathf.Clamp(linearValue, MinSliderValue, 1f);
-
-            // Conversión lineal -> decibelios. Es lo que hace que sliders 0-1 suenen naturales.
             float volumeDb = Mathf.Log10(linearValue) * 20f;
+
             audioMixer.SetFloat(mixerParam, volumeDb);
 
             PlayerPrefs.SetFloat(prefsKey, linearValue);
@@ -196,6 +256,8 @@ namespace StellarDefense.Managers
         public float GetMasterVolume() => PlayerPrefs.GetFloat(MasterVolumeKey, 0.8f);
         public float GetMusicVolume() => PlayerPrefs.GetFloat(MusicVolumeKey, 0.6f);
         public float GetSFXVolume() => PlayerPrefs.GetFloat(SFXVolumeKey, 0.8f);
+        public AudioClip GetMenuMusic() => menuMusic;
+        public AudioClip GetGameplayMusic() => gameplayMusic;
 
         // ── Conexión con eventos del juego ─────────────────────────────
 

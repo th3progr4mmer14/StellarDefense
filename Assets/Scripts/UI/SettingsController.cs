@@ -22,14 +22,31 @@ namespace StellarDefense.UI
 
         private void OnEnable()
         {
-            // Cuando el panel se activa, inicializamos los sliders con los
-            // valores actuales del AudioManager. Así el usuario siempre ve
-            // el estado real del audio, no un valor hardcodeado.
             if (AudioManager.Instance == null) return;
 
-            if (masterSlider != null) masterSlider.value = AudioManager.Instance.GetMasterVolume();
-            if (musicSlider != null) musicSlider.value = AudioManager.Instance.GetMusicVolume();
-            if (sfxSlider != null) sfxSlider.value = AudioManager.Instance.GetSFXVolume();
+            // Desconectamos temporalmente los callbacks para que al
+            // inicializar los sliders NO disparen OnValueChanged
+            // (que sobreescribirían el volumen con el valor inicial del slider).
+            if (masterSlider != null)
+            {
+                masterSlider.onValueChanged.RemoveListener(OnMasterChanged);
+                masterSlider.value = AudioManager.Instance.GetMasterVolume();
+                masterSlider.onValueChanged.AddListener(OnMasterChanged);
+            }
+
+            if (musicSlider != null)
+            {
+                musicSlider.onValueChanged.RemoveListener(OnMusicChanged);
+                musicSlider.value = AudioManager.Instance.GetMusicVolume();
+                musicSlider.onValueChanged.AddListener(OnMusicChanged);
+            }
+
+            if (sfxSlider != null)
+            {
+                sfxSlider.onValueChanged.RemoveListener(OnSFXChanged);
+                sfxSlider.value = AudioManager.Instance.GetSFXVolume();
+                sfxSlider.onValueChanged.AddListener(OnSFXChanged);
+            }
         }
 
         // ── Callbacks de los sliders ───────────────────────────────────

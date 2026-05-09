@@ -1532,8 +1532,8 @@ MonoBehaviour:
   sfxGroup: {fileID: -4864539467715941465, guid: db9dcac82d4aac141ad0d403343f3baa, type: 2}
   musicSource: {fileID: 0}
   sfxSource: {fileID: 0}
-  menuMusic: {fileID: 0}
-  gameplayMusic: {fileID: 0}
+  menuMusic: {fileID: 8300000, guid: c519ff92a865002468c96a77d37d52c7, type: 3}
+  gameplayMusic: {fileID: 8300000, guid: 5cbd523e8e1c3334c8e7c12948294933, type: 3}
   playerShootClip: {fileID: 8300000, guid: c030d86282990c14dae826c0fdf2ab71, type: 3}
   playerHitClip: {fileID: 8300000, guid: 40fb99c4e06beec4a885dff8ea9572e9, type: 3}
   enemyShootClip: {fileID: 8300000, guid: 1cf8eeea6f68a4840b6dcff2a6e138a3, type: 3}

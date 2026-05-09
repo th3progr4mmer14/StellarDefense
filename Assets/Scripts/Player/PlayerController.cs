@@ -102,9 +102,11 @@ namespace StellarDefense.Player
             // Reset del score al iniciar la partida. Si el ScoreManager no existe
             // (caso de Play directo en Gameplay sin pasar por MainMenu), no pasa nada.
             if (ScoreManager.Instance != null)
-            {
                 ScoreManager.Instance.ResetScore();
-            }
+
+            // Forzar música de gameplay al iniciar.
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlayMusic(AudioManager.Instance.GetGameplayMusic());
         }
 
         private void Update()
