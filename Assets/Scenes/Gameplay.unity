@@ -5856,6 +5856,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StellarDefense.Managers.GameManager
   mainMenuSceneName: MainMenu
   gameplaySceneName: Gameplay
+--- !u!1 &1672768620
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1672768622}
+  - component: {fileID: 1672768621}
+  m_Layer: 0
+  m_Name: PowerUpSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1672768621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1672768620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64446c68770c3fa4a9af38bbb4cbb139, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StellarDefense.PowerUps.PowerUpSpawner
+  shieldPrefab: {fileID: 5617961001510871286, guid: fc9341dd50fca554588d21b22fcff334, type: 3}
+  extraLifePrefab: {fileID: 5306746026191077327, guid: af18a182c5558f24c98e08d9b673ba4a, type: 3}
+  tripleShotPrefab: {fileID: 7577962487020999960, guid: 7569dde8fb62997439fef66258c21f33, type: 3}
+  dropChance: 0.25
+--- !u!4 &1672768622
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1672768620}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 573.80475, y: 343.48062, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1686728267
 GameObject:
   m_ObjectHideFlags: 0
@@ -6836,3 +6884,4 @@ SceneRoots:
   - {fileID: 1403655658}
   - {fileID: 1686728269}
   - {fileID: 594595337}
+  - {fileID: 1672768622}

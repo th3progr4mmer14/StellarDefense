@@ -142,22 +142,33 @@ namespace StellarDefense.Player
         // ── Disparo ────────────────────────────────────────────────────
         private void TryShoot()
         {
-            // Cooldown: comparamos contra el último tiempo de disparo.
-            // Time.time es preferible a un timer manual porque Unity lo gestiona y no acumula error.
             if (Time.time - lastShotTime < gameSettings.ShootCooldown) return;
-
             if (playerProjectilePool == null) return;
 
-            Projectile projectile = playerProjectilePool.Get();
-            if (projectile == null) return; // pool agotado y sin growth permitido
+            if (isTripleShot)
+            {
+                // Dispara 3 proyectiles en abanico.
+                ShootProjectile(Vector2.up);
+                ShootProjectile(new Vector2(-0.3f, 1f).normalized);
+                ShootProjectile(new Vector2(0.3f, 1f).normalized);
+            }
+            else
+            {
+                ShootProjectile(Vector2.up);
+            }
 
-            Vector2 origin = firePoint != null ? (Vector2)firePoint.position : (Vector2)transform.position;
-            projectile.Launch(origin, Vector2.up, gameSettings.PlayerProjectileSpeed);
-
-            // Notificar al AudioManager. Null check porque puede no estar en algunas escenas de prueba.
             if (AudioManager.Instance != null) AudioManager.Instance.OnPlayerShoot();
-
             lastShotTime = Time.time;
+        }
+
+        private void ShootProjectile(Vector2 direction)
+        {
+            Projectile projectile = playerProjectilePool.Get();
+            if (projectile == null) return;
+            Vector2 origin = firePoint != null
+                ? (Vector2)firePoint.position
+                : (Vector2)transform.position;
+            projectile.Launch(origin, direction, gameSettings.PlayerProjectileSpeed);
         }
 
         // ── Daño y vidas ───────────────────────────────────────────────
@@ -217,6 +228,61 @@ namespace StellarDefense.Player
 
             spriteRenderer.enabled = true;
             isInvulnerable = false;
+        }
+
+        // ── Power-ups ──────────────────────────────────────────────────
+
+        /// <summary>Activa el escudo (invulnerabilidad) por un tiempo.</summary>
+        public void ActivateShield(float duration)
+        {
+            if (isInvulnerable) return;
+            StartCoroutine(ShieldRoutine(duration));
+        }
+
+        private IEnumerator ShieldRoutine(float duration)
+        {
+            isInvulnerable = true;
+            // Parpadeo más lento que el de daño para distinguirlo visualmente.
+            float elapsed = 0f;
+            const float blinkInterval = 0.2f;
+
+            while (elapsed < duration)
+            {
+                spriteRenderer.color = elapsed % 0.4f < 0.2f
+                    ? Color.cyan
+                    : Color.white;
+                yield return new WaitForSeconds(blinkInterval);
+                elapsed += blinkInterval;
+            }
+
+            spriteRenderer.color = Color.white;
+            isInvulnerable = false;
+        }
+
+        /// <summary>Añade una vida al jugador (máximo: valor inicial de GameSettings).</summary>
+        public void AddLife()
+        {
+            if (gameSettings == null) return;
+            currentLives = Mathf.Min(currentLives + 1, gameSettings.InitialLives);
+            OnLivesChanged?.Invoke(currentLives);
+        }
+
+        /// <summary>Activa el modo triple disparo por un tiempo.</summary>
+        public void ActivateTripleShot(float duration)
+        {
+            if (tripleShotCoroutine != null) StopCoroutine(tripleShotCoroutine);
+            tripleShotCoroutine = StartCoroutine(TripleShotRoutine(duration));
+        }
+
+        private Coroutine tripleShotCoroutine;
+        private bool isTripleShot;
+
+        private IEnumerator TripleShotRoutine(float duration)
+        {
+            isTripleShot = true;
+            yield return new WaitForSeconds(duration);
+            isTripleShot = false;
+            tripleShotCoroutine = null;
         }
     }
 }

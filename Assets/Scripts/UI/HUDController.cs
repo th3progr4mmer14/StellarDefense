@@ -41,9 +41,6 @@ namespace StellarDefense.UI
         [Tooltip("Prefijo del high score.")]
         [SerializeField] private string highScorePrefix = "HS: ";
 
-        [Tooltip("Prefijo de vidas.")]
-        [SerializeField] private string livesPrefix = "Vidas: ";
-
         [Tooltip("Prefijo de wave.")]
         [SerializeField] private string wavePrefix = "Wave ";
 
