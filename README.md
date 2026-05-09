@@ -5,13 +5,13 @@ Juego 2D arcade estilo Space Invaders desarrollado en Unity 6 LTS con C#.
 ![Unity](https://img.shields.io/badge/Unity-6%20LTS-black?logo=unity)
 ![C#](https://img.shields.io/badge/C%23-purple?logo=csharp)
 ![Platform](https://img.shields.io/badge/Platform-Windows-blue)
-![Status](https://img.shields.io/badge/Status-En%20desarrollo-green)
+![Status](https://img.shields.io/badge/Status-Jugable-brightgreen)
 
 ---
 
 ## 🎮 Descripción
 
-StellarDefense es un shooter arcade 2D donde el jugador debe defender la Tierra de oleadas de enemigos alienígenas. Inspirado en el clásico Space Invaders, el juego incorpora mecánicas modernas como sistema de combos, power-ups, efectos visuales y música dinámica.
+StellarDefense es un shooter arcade 2D donde el jugador debe defender la Tierra de oleadas de enemigos alienígenas. Inspirado en el clásico Space Invaders, el juego incorpora mecánicas modernas como sistema de combos, power-ups, efectos visuales, animaciones y música dinámica.
 
 ---
 
@@ -46,7 +46,10 @@ StellarDefense es un shooter arcade 2D donde el jugador debe defender la Tierra 
 ### Polish Visual
 - 🎨 Sprites pixel art del SpaceShooterAssetPack integrados en todas las entidades
 - 🌌 Fondo estrellado tileado con efecto Tiled Draw Mode
-- 💥 Partículas de explosión al matar enemigos
+- 🫁 Animación de respiración en los 3 tipos de enemigos (Animator + clips de Scale)
+- 🛸 Animación de balanceo del Player simulando vibración del propulsor
+- 🔄 Animación de rotación continua en power-ups
+- 💥 Efecto de explosión personalizado al matar enemigos
 - 📳 Screen shake al recibir daño
 - 🔢 Texto flotante con puntos y multiplicador de combo
 - 🌟 Efecto de parpadeo (invulnerabilidad) al recibir daño
@@ -68,13 +71,19 @@ StellarDefense es un shooter arcade 2D donde el jugador debe defender la Tierra 
 | **Data-Driven Design** | Stats de enemigos y waves configurables sin recompilar |
 
 ### Estructura de carpetas
+
+```text
 Assets/
+├── Animations/
+│   ├── Enemies/        (Enemy_Wiggle.anim + BasicEnemy.controller)
+│   ├── Player/         (Player_Idle.anim + Player.controller)
+│   └── PowerUps/       (PowerUp_Spin.anim + ExtraLifePowerUp.controller)
 ├── Audio/
 │   ├── Music/          (música de fondo)
 │   └── SFX/            (efectos de sonido)
 ├── Input/              (PlayerControls.inputactions)
 ├── Prefabs/
-│   ├── Effects/        (explosión, texto flotante)
+│   ├── Effects/        (ExplosionEffect, FloatingText)
 │   ├── Enemies/        (BasicEnemy, FastEnemy, TankEnemy)
 │   ├── Player/
 │   ├── PowerUps/       (Shield, ExtraLife, TripleShot)
@@ -97,7 +106,7 @@ Assets/
 │   ├── GameSettings/   (DefaultGameSettings.asset)
 │   └── Waves/          (Wave_01 a Wave_07.asset)
 └── Sprites/            (SpaceShooterAssetPack: ships, enemies, projectiles, backgrounds, miscellaneous)
-
+```
 ---
 
 ## 🛠️ Stack Técnico
@@ -110,6 +119,7 @@ Assets/
 | **TextMeshPro** | Incluido en Unity 6 | Textos de UI |
 | **Universal RP** | 2D | Pipeline de renderizado |
 | **AudioMixer** | Nativo | Sistema de audio |
+| **Animator** | Nativo | Sistema de animaciones |
 
 ---
 
@@ -152,11 +162,7 @@ git clone https://github.com/th3progr4mmer14/StellarDefense.git
 - [x] Fase 5 — Audio completo (música contextual, SFX)
 - [x] Fase 6 — Power-ups y Polish visual
 - [x] Fase 7 — Integración de sprites y fondo (SpaceShooterAssetPack pixel art)
-- [ ] Animaciones (wiggle de enemigos, propulsor del jugador, explosiones animadas)
-- [ ] Más tipos de enemigos con comportamientos especiales (boss waves, kamikaze)
-- [ ] Sistema de vidas con continues
-- [ ] Build para WebGL
-
+- [x] Fase 8 — Animaciones (Player, enemigos y power-ups con Animator)
 ---
 
 ## 👨‍💻 Autor
@@ -170,3 +176,5 @@ git clone https://github.com/th3progr4mmer14/StellarDefense.git
 
 Este proyecto es de uso educativo y personal.
 Assets gráficos: SpaceShooterAssetPack (uso libre para proyectos personales).
+
+
