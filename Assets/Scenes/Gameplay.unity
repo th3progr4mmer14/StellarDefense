@@ -1066,6 +1066,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1191,6 +1192,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a46ca2bf3232b048b025290209435dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StellarDefense.Utils.ScreenShake
 --- !u!1 &548757153
 GameObject:
   m_ObjectHideFlags: 0
@@ -5265,7 +5278,6 @@ MonoBehaviour:
   playerController: {fileID: 1952869347}
   scorePrefix: 'Score: '
   highScorePrefix: 'HS: '
-  livesPrefix: 'Vidas: '
   wavePrefix: 'Wave '
 --- !u!4 &1516866721
 Transform:
@@ -6198,6 +6210,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1755128718}
   m_CullTransparentMesh: 1
+--- !u!1 &1803722400
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1803722402}
+  - component: {fileID: 1803722401}
+  m_Layer: 0
+  m_Name: PolishManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1803722401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1803722400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8873058305e682948bcf40f281b15274, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StellarDefense.Managers.PolishManager
+  explosionPrefab: {fileID: 7277582872483112055, guid: a7fd0883d6d59fd4ca89018285fa25cb, type: 3}
+  floatingTextPrefab: {fileID: 6320962649885833612, guid: 8e379eeea1c1eef4fbb76edae2cb1a4d, type: 3}
+  playerController: {fileID: 1952869347}
+  normalPointsColor: {r: 1, g: 1, b: 1, a: 1}
+  comboPointsColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+--- !u!4 &1803722402
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1803722400}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 573.80475, y: 343.48062, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1929237044
 GameObject:
   m_ObjectHideFlags: 0
@@ -6885,3 +6946,4 @@ SceneRoots:
   - {fileID: 1686728269}
   - {fileID: 594595337}
   - {fileID: 1672768622}
+  - {fileID: 1803722402}

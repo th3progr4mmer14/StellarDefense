@@ -97,12 +97,12 @@ namespace StellarDefense.Enemies
         {
             canShoot = false;
 
-            // Notificamos a quienes nos escuchen ANTES de desactivar el GameObject.
+            // Registramos posición para que PolishManager sepa dónde spawnear efectos.
+            PolishManager.RegisterEnemyDeathPosition(transform.position);
+
             OnDestroyed?.Invoke(this);
             OnAnyEnemyDestroyed?.Invoke(data.PointsValue);
 
-            // VFX y SFX se gestionarán desde AudioManager/effects en fases siguientes.
-            // Por ahora, simplemente desactivamos.
             gameObject.SetActive(false);
         }
     }
